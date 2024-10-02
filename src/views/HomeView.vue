@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import axios from 'axios'
 import HomeHeader from '../components/homepage/HomeHeader.vue'
 import HomeCurrentWeather from '../components/homepage/HomeCurrentWeather.vue'
-import HomeForecasts from '../components/homepage/HomeForecasts.vue'
+import HomeForecasts from '@/components/homepage/HomeForecasts.vue'
 import HomeFooter from '../components/homepage/HomeFooter.vue'
 
 const weatherDataCurrent = ref()
