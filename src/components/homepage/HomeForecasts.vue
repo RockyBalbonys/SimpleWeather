@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { fromZonedTime, toZonedTime } from 'date-fns-tz';
+import { fromZonedTime, toZonedTime } from 'date-fns-tz'
 
 // Get the user's local timezone
-const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-console.log("User's Timezone:", userTimezone);
+const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+console.log("User's Timezone:", userTimezone)
 
 const props = defineProps({
   weatherDataForecast: Object
-});
+})
 
-console.log('From forecast props', props.weatherDataForecast);
+console.log('From forecast props', props.weatherDataForecast)
 
 // Decode weather codes to descriptions
 const weatherCodeDescriptions: Record<number, string> = {
@@ -41,52 +41,55 @@ const weatherCodeDescriptions: Record<number, string> = {
   95: 'Thunderstorm: Slight or moderate',
   96: 'Thunderstorm with slight hail',
   99: 'Thunderstorm with heavy hail'
-};
+}
 
 // Decode weather code to description
 function decodeWeatherCode(code: number): string {
-  return weatherCodeDescriptions[code] || 'Unknown weather condition';
+  return weatherCodeDescriptions[code] || 'Unknown weather condition'
 }
 
 // Function to convert the forecast time to the user's local timezone
 const convertToUserTimezone = (forecastTime: string, userTimezone: string) => {
-  const utcTime = fromZonedTime(forecastTime, 'UTC'); // Convert from UTC to user's local time
-  const localTime = toZonedTime(utcTime, userTimezone);
-  return localTime;
-};
+  const utcTime = fromZonedTime(forecastTime, 'UTC') // Convert from UTC to user's local time
+  const localTime = toZonedTime(utcTime, userTimezone)
+  return localTime
+}
 
 // Format time to 12-hour format for display
 const formatTime = (time: Date) => {
   return time.toLocaleString('en-US', {
     hour: 'numeric',
     minute: 'numeric',
-    hour12: true, // 12-hour format
-  });
-};
+    hour12: true // 12-hour format
+  })
+}
 
 // Get current local time in ISO format
-const currentLocalTime = new Date().toISOString();
-console.log("Current local time:", currentLocalTime);
+const currentLocalTime = new Date().toISOString()
+console.log('Current local time:', currentLocalTime)
 
 // Map weather data and convert forecast times to the user's local time zone
-const mappedWeatherDataForecasts = props.weatherDataForecast?.precipitation_probability.map((_: any, index: number) => {
-  const forecastTime = props.weatherDataForecast?.time[index];
+const mappedWeatherDataForecasts =
+  props.weatherDataForecast?.precipitation_probability
+    .map((_: any, index: number) => {
+      const forecastTime = props.weatherDataForecast?.time[index]
 
-  // Convert the forecast time to user's local time zone
-  const localTime = convertToUserTimezone(forecastTime, userTimezone);
+      // Convert the forecast time to user's local time zone
+      const localTime = convertToUserTimezone(forecastTime, userTimezone)
 
-  // Only include forecasts from the current time onward
-  if (forecastTime >= currentLocalTime) {
-    return {
-      time: formatTime(localTime), // Format the time in 12-hour format
-      precipitation_probability: props.weatherDataForecast?.precipitation_probability[index],
-      temperature_2m: props.weatherDataForecast?.temperature_2m[index],
-      weather_code: decodeWeatherCode(props.weatherDataForecast?.weather_code[index]),
-    };
-  }
-}).filter((forecast: undefined) => forecast !== undefined) || [];
+      // Only include forecasts from the current time onward
+      if (forecastTime >= currentLocalTime) {
+        return {
+          time: formatTime(localTime), // Format the time in 12-hour format
+          precipitation_probability: props.weatherDataForecast?.precipitation_probability[index],
+          temperature_2m: props.weatherDataForecast?.temperature_2m[index],
+          weather_code: decodeWeatherCode(props.weatherDataForecast?.weather_code[index])
+        }
+      }
+    })
+    .filter((forecast: undefined) => forecast !== undefined) || []
 
-console.log(mappedWeatherDataForecasts);
+console.log(mappedWeatherDataForecasts)
 </script>
 
 <template>
