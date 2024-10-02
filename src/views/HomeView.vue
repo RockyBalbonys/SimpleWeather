@@ -40,7 +40,7 @@ console.log('weather data: ', weatherDataCurrent)
 </script>
 
 <template>
-  <main class="container mx-auto">
+  <main class="container mx-auto px-10">
     <h1 v-if="coords">
       <HomeHeader :coords="coords" />
     </h1>

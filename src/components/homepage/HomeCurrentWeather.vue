@@ -48,10 +48,10 @@ const windSpeed: number = props.weatherDataCurrent?.windspeed
 <template>
   <div>
     <div class="my-20 text-xl text-slate-200 font-normal" v-if="props.weatherDataCurrent">
-      <h1 class="text-8xl pt-4 pb-2 font-extrabold text-slate-100">{{ temperature }}°C</h1>
-      <h3 class="text-l pb-1">{{ weatherCondition }}</h3>
-      <h3 class="text-l pb-1">Wind Direction: {{ windDirection }}°</h3>
-      <h3 class="text-l pb-1">Wind Speed: {{ windSpeed }}km/h</h3>
+      <h1 class="text-8xl pt-4 pb-4 font-extrabold text-slate-100">{{ temperature }}°C</h1>
+      <h3 class="text-4xl font-semibold pb-2">{{ weatherCondition }}</h3>
+      <h3 class="text-4xl font-semibold pb-2">Wind Direction: {{ windDirection }}°</h3>
+      <h3 class="text-4xl font-semibold pb-2">Wind Speed: {{ windSpeed }} km/h</h3>
     </div>
   </div>
 </template>

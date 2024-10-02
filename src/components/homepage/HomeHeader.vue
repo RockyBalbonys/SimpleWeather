@@ -30,10 +30,17 @@ axios
 <template>
   <div>
     <header>
-      <h1 class="text-4xl py-2 text-slate-300 font-semibold">Simple Weather</h1>
+      <h1 class="flex text-4xl py-2 text-slate-100 font-bold">
+        <span
+          ><img
+            src="..\..\assets\WeatherIcons\simpleWeatherIcon.png"
+            alt="icon"
+            class="h-10 w-10" /></span
+        >Simple Weather
+      </h1>
       <hr />
       <div v-if="loc">
-        <h2 class="text-xl text-slate-400 font-normal">{{ loc.city }}, {{ loc.country }}</h2>
+        <h2 class="text-xl text-slate-200 font-normal ml-10">{{ loc.city }}, {{ loc.country }}</h2>
       </div>
     </header>
   </div>
